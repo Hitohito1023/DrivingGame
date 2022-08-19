@@ -15,6 +15,15 @@
         android:text="@string/app_name"
         android:textSize="32sp"/>
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginHorizontal="15dp"
+        android:text="逆走車や水溜りに注意しながら、走行距離を伸ばそう！ガソリンの残量にも注意して"
+        android:textSize="20sp"/>
+
+
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -23,13 +32,13 @@
         <TableRow
             android:gravity="center_vertical">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/pink"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/gas"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="30 point"
+                android:text="ガソリン残量1000L Up"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"/>
         </TableRow>
@@ -38,13 +47,13 @@
             android:gravity="center_vertical"
             android:layout_marginTop="20dp">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/orange"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/puddle"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10 point"
+                android:text="ガソリン残量200L Dawn"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"/>
         </TableRow>
@@ -53,16 +62,18 @@
             android:gravity="center_vertical"
             android:layout_marginTop="20dp">
             <ImageView
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:src="@drawable/black"/>
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:src="@drawable/enemy"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Game Over"
+                android:text="逆走車（GAME OVER）"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"/>
         </TableRow>
+
+
     </TableLayout>
 
     <Button

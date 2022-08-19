@@ -22,11 +22,12 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     private TextView scoreLabel;
+    private TextView gasLimitLabel;
     private TextView startLabel;
     private ImageView car;
-    private ImageView orange;
-    private ImageView pink;
-    private ImageView black;
+    private ImageView gas;
+    private ImageView puddle;
+    private ImageView enemy;
 
     private int frameWidth;
     private int carSize;
@@ -37,14 +38,15 @@ public class MainActivity extends AppCompatActivity {
 
     private float carX;
     private float carY;
-    private float orangeX;
-    private float orangeY;
-    private float pinkX;
-    private float pinkY;
-    private float blackX;
-    private float blackY;
+    private float gasX;
+    private float gasY;
+    private float puddleX;
+    private float puddleY;
+    private float enemyX;
+    private float enemyY;
 
     private int score = 0;
+    private int gasLimit = 1000;
 
     private Handler handler = new Handler();
     private Timer timer = new Timer();
@@ -65,11 +67,12 @@ public class MainActivity extends AppCompatActivity {
         soundPlayer = new SoundPlayer(this);
 
         scoreLabel = findViewById(R.id.scoreLabel);
+        gasLimitLabel = findViewById(R.id.gasLimitLabel);
         startLabel = findViewById(R.id.startLabel);
         car = findViewById(R.id.car);
-        orange = findViewById(R.id.orange);
-        pink = findViewById(R.id.pink);
-        black = findViewById(R.id.black);
+        gas = findViewById(R.id.gas);
+        puddle = findViewById(R.id.puddle);
+        enemy = findViewById(R.id.enemy);
 
         WindowManager wm = getWindowManager();
         Display display = wm.getDefaultDisplay();
@@ -79,14 +82,15 @@ public class MainActivity extends AppCompatActivity {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        orange.setX(-80.0f);
-        orange.setY(-80.0f);
-        pink.setX(-80.0f);
-        pink.setY(-80.0f);
-        black.setX(-80.0f);
-        black.setY(-80.0f);
+        gas.setX(80.0f);
+        gas.setY(80.0f);
+        puddle.setX(-80.0f);
+        puddle.setY(-80.0f);
+        enemy.setX(-80.0f);
+        enemy.setY(-80.0f);
 
         scoreLabel.setText("Score : 0");
+        gasLimitLabel.setText("ガソリン残量 : 1000");
 
     }
 
@@ -95,34 +99,36 @@ public class MainActivity extends AppCompatActivity {
 
         hitCheck();
 
-        // orange
-        // orangeの落ちる速さ
-        orangeY += 10;
-        if (orangeY > screenHeight) {
-            //orangeが再登場する速度
-            orangeY = -10;
-            orangeX = (float)Math.floor(Math.random() * (frameWidth - orange.getWidth()));
-        }
-        orange.setX(orangeX);
-        orange.setY(orangeY);
+        gasLimitCheck();
 
-        // pink
-        pinkY += 50;
-        if (pinkY > screenHeight) {
-            pinkY = -20;
-            pinkX = (float)Math.floor(Math.random() * (frameWidth - pink.getWidth()));
+        // gas
+        // gasの落ちる速さ
+        gasY += 10;
+        if (gasY > screenHeight) {
+            //gasが再登場する速度
+            gasY = -100;
+            gasX = (float)Math.floor(Math.random() * (frameWidth - gas.getWidth()));
         }
-        pink.setX(pinkX);
-        pink.setY(pinkY);
+        gas.setX(gasX);
+        gas.setY(gasY);
 
-        // black
-        blackY += 30;
-        if (blackY > screenHeight) {
-            blackY = -5;
-            blackX = (float)Math.floor(Math.random() * (frameWidth - black.getWidth()));
+        // puddle
+        puddleY += 20;
+        if (puddleY > screenHeight) {
+            puddleY = -10;
+            puddleX = (float)Math.floor(Math.random() * (frameWidth - puddle.getWidth()));
         }
-        black.setX(blackX);
-        black.setY(blackY);
+        puddle.setX(puddleX);
+        puddle.setY(puddleY);
+
+        // enemy
+        enemyY += 40;
+        if (enemyY > screenHeight) {
+            enemyY = -50;
+            enemyX = (float)Math.floor(Math.random() * (frameWidth - enemy.getWidth()));
+        }
+        enemy.setX(enemyX);
+        enemy.setY(enemyY);
 
         if (action_flg) {
             carX += 20;
@@ -138,36 +144,41 @@ public class MainActivity extends AppCompatActivity {
 
         car.setX(carX);
 
+        score += 1;
+        gasLimit -= 2;
+
         scoreLabel.setText("Score : " + score);
+        gasLimitLabel.setText("ガソリン残量 : " + gasLimit);
+
     }
 
     public void hitCheck() {
 
-        //orange
-        float orangeCenterX = orangeX + orange.getWidth() / 2;
-        float orangeCenterY = orangeY + orange.getHeight() / 2;
+        //gas
+        float gasCenterX = gasX + gas.getWidth() / 2;
+        float gasCenterY = gasY + gas.getHeight() / 2;
 
-        if (hitStatus(orangeCenterX, orangeCenterY)) {
-            orangeY = screenHeight + 100;
-            score += 10;
+        if (hitStatus(gasCenterX, gasCenterY)) {
+            gasY = screenHeight + 100;
+            gasLimit += 1000;
             soundPlayer.playHitSound();
         }
 
-        //pink
-        float pinkCenterX = pinkX + pink.getWidth() / 2;
-        float pinkCenterY = pinkY + pink.getHeight() / 2;
+        //puddle
+        float puddleCenterX = puddleX + puddle.getWidth() / 2;
+        float puddleCenterY = puddleY + puddle.getHeight() / 2;
 
-        if (hitStatus(pinkCenterX, pinkCenterY)) {
-            pinkY = screenHeight + 100;
-            score += 50;
+        if (hitStatus(puddleCenterX, puddleCenterY)) {
+            puddleY = screenHeight + 100;
+            gasLimit -= 200;
             soundPlayer.playHitSound();
         }
 
-        //black
-        float blackCenterX = blackX + black.getWidth() / 2;
-        float blackCenterY = blackY + black.getHeight() / 2;
+        //enemy
+        float enemyCenterX = enemyX + enemy.getWidth() / 2;
+        float enemyCenterY = enemyY + enemy.getHeight() / 2;
 
-        if (hitStatus(blackCenterX, blackCenterY)) {
+        if (hitStatus(enemyCenterX, enemyCenterY)) {
             if (timer != null) {
                 timer.cancel();
                 timer = null;
@@ -185,6 +196,20 @@ public class MainActivity extends AppCompatActivity {
     public boolean hitStatus(float centerX, float centerY) {
         return (carX <= centerX && centerX <= carX + carSize &&
                 carY <= centerY && centerY <= screenHeight) ? true : false;
+    }
+
+    public void gasLimitCheck() {
+        if (gasLimit < 2) {
+            if (timer != null) {
+                timer.cancel();
+                timer = null;
+                soundPlayer.playOverSound();
+            }
+
+            Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
+            intent.putExtra("SCORE", score);
+            startActivity(intent);
+        }
     }
 
     @Override
