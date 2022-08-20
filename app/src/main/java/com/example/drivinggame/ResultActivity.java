@@ -20,19 +20,19 @@ public class ResultActivity extends AppCompatActivity {
 
 
         int score = getIntent().getIntExtra("SCORE", 0);
-        scoreLabel.setText(score + "");
+        scoreLabel.setText(getString(R.string.resultScore, score));
 
         SharedPreferences sharedPreferences = getSharedPreferences("GAME_DATA", MODE_PRIVATE);
         int highScore = sharedPreferences.getInt("HIGH_SCORE", 0);
 
         if (score > highScore) {
-            highScoreLabel.setText("High Score : " + score);
+            highScoreLabel.setText(getString(R.string.highScore, score));
 
             SharedPreferences.Editor editor = sharedPreferences.edit();
             editor.putInt("HIGH_SCORE", score);
             editor.apply();
         } else {
-            highScoreLabel.setText("High Score : " + highScore);
+            highScoreLabel.setText(getString(R.string.highScore, highScore));
         }
 
     }

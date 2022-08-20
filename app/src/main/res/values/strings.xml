@@ -1,3 +1,16 @@
 <resources>
-    <string name="app_name">DrivingGame</string>
+    <string name="app_name">Driving Game</string>
+    <string name="startLabel">タップしてスタート</string>
+    <string name="introduction">逆走車や水溜りに注意しながら、\n走行距離を伸ばそう！\nガソリンの残量にも注意して!</string>
+    <string name="intro_gas">ガソリン残量 +1000L</string>
+    <string name="intro_puddle">ガソリン残量 -200L</string>
+    <string name="intro_enemy">逆走車(GAME OVER)</string>
+    <string name="intro_no_gas">ガソリン残量が0になっても\nGAME OVER</string>
+    <string name="start_button">START</string>
+    <string name="scoreLabel">Score : %d Km</string>
+    <string name="gasLimitLabel">ガソリン : %d L</string>
+    <string name="resultLabel">GAME OVER</string>
+    <string name="resultScore">%d Km</string>
+    <string name="highScore">ハイスコア : %d Km</string>
+    <string name="retryLabel">もう一度プレイ</string>
 </resources>

@@ -11,14 +11,14 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="GAME OVER"
+        android:text="@string/resultLabel"
         android:textSize="30sp" />
 
     <TextView
         android:id="@+id/scoreLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="150"
+        android:text="@string/resultScore"
         android:textSize="40sp"
         android:layout_marginTop="80dp"/>
 
@@ -26,15 +26,16 @@
         android:id="@+id/highScoreLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="High Score : 300"
+        android:text="@string/highScore"
         android:textSize="20sp"
         android:layout_marginTop="80dp"/>
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="もう一度プレイ"
+        android:text="@string/retryLabel"
         android:layout_marginTop="50dp"
-        android:onClick="tryAgain"/>
+        android:onClick="tryAgain"
+        tools:ignore="UsingOnClickInXml" />
 
 </LinearLayout>

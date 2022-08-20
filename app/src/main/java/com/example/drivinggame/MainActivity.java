@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.RenderNode;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -28,6 +29,9 @@ public class MainActivity extends AppCompatActivity {
     private ImageView gas;
     private ImageView puddle;
     private ImageView enemy;
+    private ImageView image;
+    private Drawable back;
+    private Drawable back2;
 
     private int frameWidth;
     private int carSize;
@@ -46,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
     private float enemyY;
 
     private int score = 0;
-    private int gasLimit = 1000;
+    private int gasLimit = 3000;
 
     private Handler handler = new Handler();
     private Timer timer = new Timer();
@@ -55,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     private boolean action_flg = true;
 
     private boolean start_flg = false;
+
+    private boolean back_flg = false;
 
     private SoundPlayer soundPlayer;
 
@@ -73,6 +79,9 @@ public class MainActivity extends AppCompatActivity {
         gas = findViewById(R.id.gas);
         puddle = findViewById(R.id.puddle);
         enemy = findViewById(R.id.enemy);
+        image = findViewById(R.id.imageView);
+        back = getResources().getDrawable(R.drawable.back);
+        back2 = getResources().getDrawable(R.drawable.back2);
 
         WindowManager wm = getWindowManager();
         Display display = wm.getDefaultDisplay();
@@ -82,15 +91,15 @@ public class MainActivity extends AppCompatActivity {
         screenWidth = size.x;
         screenHeight = size.y;
 
-        gas.setX(80.0f);
-        gas.setY(80.0f);
-        puddle.setX(-80.0f);
-        puddle.setY(-80.0f);
-        enemy.setX(-80.0f);
-        enemy.setY(-80.0f);
+        gasX = 200;
+        gasY = -1000;
+        puddleX = 400;
+        puddleY = -500;
+        enemyX = 500;
+        enemyY = -2000;
 
-        scoreLabel.setText("Score : 0");
-        gasLimitLabel.setText("ガソリン残量 : 1000");
+        scoreLabel.setText(getString(R.string.scoreLabel, 0));
+        gasLimitLabel.setText(getString(R.string.gasLimitLabel, 3000));
 
     }
 
@@ -106,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
         gasY += 10;
         if (gasY > screenHeight) {
             //gasが再登場する速度
-            gasY = -100;
+            gasY = -300;
             gasX = (float)Math.floor(Math.random() * (frameWidth - gas.getWidth()));
         }
         gas.setX(gasX);
@@ -115,7 +124,7 @@ public class MainActivity extends AppCompatActivity {
         // puddle
         puddleY += 20;
         if (puddleY > screenHeight) {
-            puddleY = -10;
+            puddleY = -100;
             puddleX = (float)Math.floor(Math.random() * (frameWidth - puddle.getWidth()));
         }
         puddle.setX(puddleX);
@@ -124,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         // enemy
         enemyY += 40;
         if (enemyY > screenHeight) {
-            enemyY = -50;
+            enemyY = -500;
             enemyX = (float)Math.floor(Math.random() * (frameWidth - enemy.getWidth()));
         }
         enemy.setX(enemyX);
@@ -142,13 +151,23 @@ public class MainActivity extends AppCompatActivity {
             carX = frameWidth - carSize;
         }
 
+        if (back_flg) {
+            image.setImageDrawable(back);
+            back_flg = false;
+        } else {
+            image.setImageDrawable(back2);
+            back_flg = true;
+        }
+
         car.setX(carX);
 
         score += 1;
         gasLimit -= 2;
 
-        scoreLabel.setText("Score : " + score);
-        gasLimitLabel.setText("ガソリン残量 : " + gasLimit);
+
+
+        scoreLabel.setText(getString(R.string.scoreLabel, score));
+        gasLimitLabel.setText(getString(R.string.gasLimitLabel, gasLimit));
 
     }
 
