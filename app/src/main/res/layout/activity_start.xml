@@ -3,29 +3,39 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".StartActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    xmlns:bootstrap="http://schemas.android.com/apk/res-auto"
+    android:gravity="center"
+    android:background="#f6e5cc">
 
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="sans-serif-black"
         android:text="@string/app_name"
-        android:textSize="32sp"/>
+        android:textColor="@color/black"
+        android:textSize="40sp"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:text="@string/introduction"
+        android:textColor="@color/black"
+        android:gravity="center"
         android:textSize="20sp"/>
 
 
     <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="60dp">
+        android:layout_marginTop="20dp"
+        android:padding="15dp"
+        android:background="#d3d6dd">
 
         <TableRow
             android:gravity="center_vertical">
@@ -34,12 +44,14 @@
                 android:layout_height="50dp"
                 android:src="@drawable/gas"
                 tools:ignore="ContentDescription" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/intro_gas"
-                android:textSize="18sp"
                 android:paddingLeft="10dp"
+                android:text="@string/intro_gas"
+                android:textColor="@color/black"
+                android:textSize="18sp"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
         </TableRow>
 
@@ -57,6 +69,7 @@
                 android:text="@string/intro_puddle"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"
+                android:textColor="@color/black"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
         </TableRow>
 
@@ -74,34 +87,38 @@
                 android:text="@string/intro_enemy"
                 android:textSize="18sp"
                 android:paddingLeft="10dp"
+                android:textColor="@color/black"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
         </TableRow>
 
         <TableRow
             android:gravity="center_vertical"
             android:layout_marginTop="20dp">
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                tools:ignore="ContentDescription" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/intro_no_gas"
                 android:textSize="18sp"
-                android:paddingLeft="10dp"
+                android:textColor="@color/black"
+                android:layout_span="2"
+                android:gravity="center"
                 tools:ignore="RtlHardcoded,RtlSymmetry" />
         </TableRow>
 
 
     </TableLayout>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/start_button"
-        android:layout_marginTop="60dp"
+    <com.beardedhen.androidbootstrap.BootstrapButton
+        android:layout_width="150dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="40dp"
         android:onClick="startGame"
+        android:text="@string/start_button"
+        app:bootstrapBrand="success"
+        app:bootstrapSize="lg"
+        app:buttonMode="regular"
+        app:roundedCorners="true"
+        app:showOutline="false"
         tools:ignore="UsingOnClickInXml" />
 
 </LinearLayout>

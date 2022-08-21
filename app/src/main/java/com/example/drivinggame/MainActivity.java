@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.RenderNode;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.os.Handler;
 import android.util.Log;
@@ -16,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -64,13 +66,18 @@ public class MainActivity extends AppCompatActivity {
 
     private SoundPlayer soundPlayer;
 
+    private MediaPlayer mp;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         soundPlayer = new SoundPlayer(this);
+
+        mp = MediaPlayer.create(this, R.raw.bgm);
+        mp.setLooping(true);
+        mp.start();
 
         scoreLabel = findViewById(R.id.scoreLabel);
         gasLimitLabel = findViewById(R.id.gasLimitLabel);
@@ -100,6 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
         scoreLabel.setText(getString(R.string.scoreLabel, 0));
         gasLimitLabel.setText(getString(R.string.gasLimitLabel, 3000));
+
 
     }
 
@@ -165,7 +173,6 @@ public class MainActivity extends AppCompatActivity {
         gasLimit -= 2;
 
 
-
         scoreLabel.setText(getString(R.string.scoreLabel, score));
         gasLimitLabel.setText(getString(R.string.gasLimitLabel, gasLimit));
 
@@ -190,7 +197,8 @@ public class MainActivity extends AppCompatActivity {
         if (hitStatus(puddleCenterX, puddleCenterY)) {
             puddleY = screenHeight + 100;
             gasLimit -= 200;
-            soundPlayer.playHitSound();
+
+            soundPlayer.playSlipSound();
         }
 
         //enemy
@@ -201,8 +209,12 @@ public class MainActivity extends AppCompatActivity {
             if (timer != null) {
                 timer.cancel();
                 timer = null;
-                soundPlayer.playOverSound();
             }
+
+        mp.stop();
+        mp.release();
+        mp = null;
+        soundPlayer.playCrushSound();
 
         Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
         intent.putExtra("SCORE", score);
@@ -222,7 +234,7 @@ public class MainActivity extends AppCompatActivity {
             if (timer != null) {
                 timer.cancel();
                 timer = null;
-                soundPlayer.playOverSound();
+//                soundPlayer.playCrushSound();
             }
 
             Intent intent = new Intent(getApplicationContext(), ResultActivity.class);
@@ -246,6 +258,7 @@ public class MainActivity extends AppCompatActivity {
 
             startLabel.setVisibility(View.GONE);
 
+
             timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
@@ -261,8 +274,10 @@ public class MainActivity extends AppCompatActivity {
             if (event.getAction() == MotionEvent.ACTION_DOWN) {
                 if (action_flg) {
                     action_flg = false;
+                    soundPlayer.playHandleSound();
                 } else {
                     action_flg = true;
+                    soundPlayer.playHandleSound();
                 }
             }
         }
@@ -271,5 +286,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {}
+
 
 }

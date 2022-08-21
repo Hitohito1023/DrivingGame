@@ -10,10 +10,14 @@ import android.widget.TextView;
 
 public class ResultActivity extends AppCompatActivity {
 
+    private SoundPlayer soundPlayer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_result);
+
+        soundPlayer = new SoundPlayer(this);
 
         TextView scoreLabel = findViewById(R.id.scoreLabel);
         TextView highScoreLabel = findViewById(R.id.highScoreLabel);
@@ -38,6 +42,7 @@ public class ResultActivity extends AppCompatActivity {
     }
 
     public void tryAgain(View view) {
+        soundPlayer.playEngineSound();
         startActivity(new Intent(getApplicationContext(), MainActivity.class));
     }
 }

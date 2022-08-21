@@ -8,29 +8,34 @@
     tools:ignore="ContentDescription">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:background="#f6e5cc">
 
         <TextView
             android:id="@+id/scoreLabel"
             android:layout_width="wrap_content"
             android:layout_height="30dp"
-            android:text="@string/scoreLabel"
-            android:textSize="18sp"
-            android:paddingLeft="10dp"
             android:gravity="center_vertical"
+            android:paddingLeft="10dp"
+            android:text="@string/scoreLabel"
+            android:textColor="@color/black"
+            android:textSize="18sp"
+            android:textStyle="bold"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
 
         <TextView
             android:id="@+id/gasLimitLabel"
             android:layout_width="match_parent"
             android:layout_height="30dp"
-            android:layout_marginLeft="100dp"
+            android:layout_marginLeft="10dp"
+            android:gravity="right"
             android:paddingRight="10dp"
             android:text="@string/gasLimitLabel"
+            android:textColor="@color/black"
             android:textSize="18sp"
-            android:gravity="right"
+            android:textStyle="bold"
             tools:ignore="RtlHardcoded,RtlSymmetry" />
     </LinearLayout>
 
@@ -55,9 +60,14 @@
             android:id="@+id/startLabel"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@color/white"
+            android:padding="10dp"
             android:text="@string/startLabel"
+            android:textAllCaps="false"
+            android:textColor="@color/black"
             android:textSize="20sp"
-            android:layout_gravity="center" />
+            android:textStyle="bold|italic" />
 
         <ImageView
             android:id="@+id/car"
